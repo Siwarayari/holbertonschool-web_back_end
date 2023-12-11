@@ -1,20 +1,16 @@
 #!/usr/bin/env python3
-"""collect 10 random numbers using an async
-comprehensing over async_generator,
-then return the 10 random numbers"""
+"""loop 10 times, each time asynchronously wait 1 second,
+then yield a random number between 0 and 10"""
 
 
 import asyncio
 import random
-from typing import Generator, List
+from typing import Generator
 
 
-async_generator = __import__('0-async_generator').async_generator
-
-
-async def async_comprehension() -> List[float]:
-    """collect 10 random numbers using an async
-comprehensing over async_generator,
-then return the 10 random numbers"""
-    result = [i async for i in async_generator()]
-    return result
+async def async_generator() -> Generator[float, None, None]:
+    """loop 10 times, each time asynchronously wait 1 second,
+    then yield a random number between 0 and 10"""
+    for i in range(10):
+        await asyncio.sleep(1)
+        yield random.uniform(0, 10)
