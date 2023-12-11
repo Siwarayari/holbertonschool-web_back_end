@@ -1,37 +1,38 @@
 #!/usr/bin/python3
-"""class LIFOCache that inherits from
-BaseCaching and is a caching system"""
-
+"""
+placeholder
+"""
 
 from base_caching import BaseCaching
 
 
 class LIFOCache(BaseCaching):
-    """class LIFOCache that inherits from
-BaseCaching and is a caching system"""
+    """
+        placeholder
+    """
+    LAST_PUT = ""
+
     def __init__(self):
-        """ Initiliaze
-        """
-        self.cache_data = {}
-        self.list = []
         super().__init__()
 
     def put(self, key, item):
-        """discard the last item put in cache (LIFO algorithm)
-        you must print DISCARD: with the key discarded
-        and following by a new line"""
+        """
+        placeholder
+        """
+        if key is None or item is None:
+            return
+        if (len(self.cache_data.items()) == BaseCaching.MAX_ITEMS):
+            if (key not in self.cache_data.keys()):
+                lastItem = self.LAST_PUT
+                print("DISCARD:", lastItem)
+                self.cache_data.pop(lastItem)
+
         self.cache_data[key] = item
-        self.list.append(key)
-        if (key and item):
-            self.cache_data[key] = item
-            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                last = self.list.pop(-2)
-                del(self.cache_data[last])
-                print("DISCARD: " + last)
+        self.LAST_PUT = key
 
     def get(self, key):
-        """Must return the value in self.cache_data linked to key.
-If key is None or if the key doesn’t exist in self.cache_data, return None"""
-        if (key is None or key not in self.cache_data):
-            return (None)
-        return self.cache_data[key]
+        """gets the required element by key"""
+        if key not in self.cache_data.keys():
+            return None
+        else:
+            return self.cache_data[key]
