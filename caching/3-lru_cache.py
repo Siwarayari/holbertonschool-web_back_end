@@ -1,38 +1,48 @@
 #!/usr/bin/python3
-"""class LIFOCache that inherits from
-BaseCaching and is a caching system"""
-
+"""
+placeholder
+"""
 
 from base_caching import BaseCaching
 
 
 class LRUCache(BaseCaching):
-    """class LIFOCache that inherits from
-BaseCaching and is a caching system"""
+    """
+        placeholder
+    """
+    AGE = 0
+    AGE_BITS = {}
+
     def __init__(self):
-        """ Initiliaze
-        """
-        self.cache_data = {}
-        self.list = []
+
         super().__init__()
 
     def put(self, key, item):
-        """discard the last item put in cache (LIFO algorithm)
-        you must print DISCARD: with the key discarded
-        and following by a new line"""
+        """
+        placeholder
+        """
+        if key is None or item is None:
+            return
+        if (len(self.cache_data.items()) == BaseCaching.MAX_ITEMS):
+            if (key not in self.cache_data.keys()):
+                leastItem = {
+                    k: v for k, v in sorted(self.AGE_BITS.items(),
+                                            key=lambda item: item[1])
+                }
+                leastItem = list(leastItem)[0]
+                print("DISCARD:", leastItem)
+                self.cache_data.pop(leastItem)
+                self.AGE_BITS.pop(leastItem)
+
         self.cache_data[key] = item
-        self.list.append(key)
-        if (key and item):
-            self.cache_data[key] = item
-            self.list.append(key)
-            if len(self.cache_data) > BaseCaching.MAX_ITEMS:
-                lru = self.list.pop(-3)
-                del self.cache_data[lru]
-                print("DISCARD: " + lru)
+        self.AGE += 1
+        self.AGE_BITS[key] = self.AGE
 
     def get(self, key):
-        """Must return the value in self.cache_data linked to key.
-If key is None or if the key doesn’t exist in self.cache_data, return None"""
-        if (key is None or key not in self.cache_data):
-            return (None)
-        return self.cache_data[key]
+        """gets the required element by key"""
+        if key not in self.cache_data.keys():
+            return None
+        else:
+            self.AGE += 1
+            self.AGE_BITS[key] = self.AGE
+            return self.cache_data[key]
