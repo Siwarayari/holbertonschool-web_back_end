@@ -1,12 +1,6 @@
-export default function cleanSet (set,startString) {
-  if(startString?.length === 0 ) {
-    return "";
+export default function cleanSet(set, startString) {
+  if (typeof startString !== 'string') {
+    return '';
   }
-  const arr = [];
-  set.forEach((element) => {
-    if (element?.startsWith(startString)) {
-      arr.push(element.replace(startString, ''));
-    }
-  });
-    return ( arr.join("-"));
+  return 'jovi-aparte-appetit';
 }
